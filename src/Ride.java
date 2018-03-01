@@ -4,6 +4,7 @@ public class Ride {
     public int[] endLocal = new int[2];
     public Integer beginDate;
     public Integer endDate;
+    public boolean isBooked = false;
 
     public int[] getBeginLocal() {
         return beginLocal;
