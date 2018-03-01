@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 public class Solver {
@@ -43,9 +44,28 @@ public class Solver {
 
     public static void solveRecursive() {
         Utils.rides.sort(rideComparator);
+        Collections.reverse(Utils.rides);
+
+        ArrayList<Vehicle> vs = new ArrayList<>();
 
         for(Vehicle v : Utils.vehicles) {
-            int score = getVehicleScore(v);
+            getVehicleScore(v);
+            vs.add(v);
+            System.out.println("V rides size: " + v.rides.size());
+            System.out.println(vs.size());
+            System.out.println("Rides: " + Utils.rides.size());
+            for(Ride r : Utils.rides) {
+                r.isBooked = false;
+                for(int i = 0; i < vs.size(); ++i) {
+                    if(vs.get(i).rides.contains(r)) {
+                        r.isBooked = true;
+                        break;
+                    }
+                }
+                if(!r.isBooked) {
+                    System.out.println("Not booked");
+                }
+            }
         }
     }
 
@@ -57,20 +77,21 @@ public class Solver {
         }
 
         r.isBooked = true;
+        int vehicleAvailableBeforeRide = v.lastAvailable;
 
         int scoreWithoutRide = getVehicleScore(v);
 
         v.rides.add(r);
-        int vehicleAvailableBeforeRide = v.lastAvailable;
         incVehicleAvailable(v, r);
 
+        v.lastAvailable = vehicleAvailableBeforeRide;
         int scoreWithRide = getVehicleScore(v);
 
+        v.lastAvailable = vehicleAvailableBeforeRide;
         if(scoreWithRide > scoreWithoutRide) {
             return scoreWithRide;
         } else {
             v.rides.remove(r);
-            v.lastAvailable = vehicleAvailableBeforeRide;
             return scoreWithoutRide;
         }
     }
@@ -137,11 +158,15 @@ public class Solver {
             return false;
         }
 
+        if(r.endDate < v.lastAvailable) {
+            return false;
+        }
+
         int prepareDistance = Distance.getDistance(lastCarPos, r.beginLocal);
         int rideDistance = Distance.getDistance(r.beginLocal, r.endLocal);
         int totalDistance = prepareDistance + rideDistance;
 
-        if(v.lastAvailable + totalDistance > r.endDate || v.lastAvailable + totalDistance > Utils.steps) {
+        if(((v.lastAvailable + totalDistance) > r.endDate) || ((v.lastAvailable + totalDistance) > Utils.steps)) {
             return false;
         }
 
