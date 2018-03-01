@@ -1,46 +1,32 @@
 import java.util.Comparator;
 
 public class Solver {
+    public static final Comparator<Ride> rideComparator = new Comparator<Ride>() {
+        @Override
+        public int compare(Ride o1, Ride o2) {
+            if(o1.beginDate < o2.beginDate) {
+                return -1;
+            } else if (o1.beginDate > o2.beginDate) {
+                return 1;
+            }
+            if(o1.endDate < o2.endDate) {
+                return -1;
+            } else if (o1.endDate > o2.endDate) {
+                return 1;
+            }
+            return 0;
+        }
+    };
+
     public static Object solve(Object input) {
         return null;
     }
 
     public static Object solveNaive() {
-
-        Utils.rides.sort(new Comparator<Ride>() {
-            @Override
-            public int compare(Ride o1, Ride o2) {
-                if(o1.beginDate < o2.beginDate) {
-                    return -1;
-                } else if (o1.beginDate > o2.beginDate) {
-                    return 1;
-                }
-                if(o1.endDate < o2.endDate) {
-                    return -1;
-                } else if (o1.endDate > o2.endDate) {
-                    return 1;
-                }
-                return 0;
-            }
-        });
+        Utils.rides.sort(rideComparator);
 
         for(Vehicle v : Utils.vehicles) {
-            int bestRideScore = 0;
-            Ride bestRide = null;
-
-            for(Ride r : Utils.rides) {
-
-                if(!isRidePossible(v, r)) {
-                    continue;
-                }
-
-                int rideScore = rideScore(v, r);
-
-                if(rideScore > bestRideScore) {
-                    bestRide = r;
-                    bestRideScore = rideScore;
-                }
-            }
+            Ride bestRide = getBestRide(v);
 
             if(bestRide != null) {
                 incVehicleAvailable(v, bestRide);
@@ -50,6 +36,69 @@ public class Solver {
         }
 
         return null;
+    }
+
+    public static void solveRecursive() {
+        Utils.rides.sort(rideComparator);
+
+        for(Vehicle v : Utils.vehicles) {
+            int score = getVehicleScore(v);
+        }
+    }
+
+    public static int getVehicleScore(Vehicle v) {
+        Ride r = getFirstPossibleRide(v);
+
+        if(r == null) {
+            return calculateVehicleScore(v);
+        }
+
+        r.isBooked = true;
+
+        int scoreWithoutRide = getVehicleScore(v);
+
+        v.rides.add(r);
+        int vehicleAvailableBeforeRide = v.lastAvailable;
+        incVehicleAvailable(v, r);
+
+        int scoreWithRide = getVehicleScore(v);
+
+        if(scoreWithRide > scoreWithoutRide) {
+            return scoreWithRide;
+        } else {
+            v.rides.remove(r);
+            v.lastAvailable = vehicleAvailableBeforeRide;
+            return scoreWithoutRide;
+        }
+    }
+
+    public static Ride getFirstPossibleRide(Vehicle v) {
+        return null;
+    }
+
+    public static int calculateVehicleScore(Vehicle v) {
+        return 0;
+    }
+
+    public static Ride getBestRide(Vehicle v) {
+        int bestRideScore = 0;
+        Ride bestRide = null;
+
+        for(Ride r : Utils.rides) {
+
+            if(!isRidePossible(v, r)) {
+                continue;
+            }
+
+            int rideScore = rideScore(v, r);
+
+            if(rideScore > bestRideScore) {
+                bestRide = r;
+                bestRideScore = rideScore;
+            }
+        }
+
+        return bestRide;
     }
 
     public static boolean isRidePossible(Vehicle v, Ride r) {
