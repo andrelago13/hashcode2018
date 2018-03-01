@@ -53,6 +53,8 @@ public class Solver {
     }
 
     public static boolean isRidePossible(Vehicle v, Ride r) {
+
+
         return false;
     }
 
