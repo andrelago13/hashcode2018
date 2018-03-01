@@ -77,7 +77,19 @@ public class Solver {
     }
 
     public static int calculateVehicleScore(Vehicle v) {
-        return 0;
+        Integer[] pos = new Integer[] {0, 0};
+        int vehicleScore = 0;
+        int availableBackup = v.lastAvailable;
+        v.lastAvailable = 0;
+
+        for(Ride r : v.rides) {
+            vehicleScore += rideScore(v, r);
+            incVehicleAvailable(v, r, pos);
+            pos = r.endLocal;
+        }
+
+        v.lastAvailable = availableBackup;
+        return vehicleScore;
     }
 
     public static Ride getBestRide(Vehicle v) {
@@ -128,7 +140,10 @@ public class Solver {
     }
 
     public static void incVehicleAvailable(Vehicle v, Ride r) {
-        Integer[] lastCarPos = lastCarPos(v);
+        incVehicleAvailable(v, r, lastCarPos(v));
+    }
+
+    public static void incVehicleAvailable(Vehicle v, Ride r, Integer[] lastCarPos) {
         int prepareDistance = Distance.getDistance(lastCarPos, r.beginLocal);
         int rideDistance = Distance.getDistance(r.beginLocal, r.endLocal);
         int totalDistance = prepareDistance + rideDistance;
