@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 public class Utils {
 
-    public ArrayList<Integer> map = new ArrayList<Integer>();
-    public ArrayList<Ride> rides = new ArrayList<Ride>();
-    public ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
-    public Integer bonus;
-    public Integer steps;
+    public static ArrayList<Integer> map = new ArrayList<Integer>();
+    public static ArrayList<Ride> rides = new ArrayList<Ride>();
+    public static ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
+    public static Integer bonus;
+    public static Integer steps;
 
     public static void solve() {
         //Object input = parse();
@@ -64,6 +64,10 @@ public class Utils {
             System.out.println("File not found" + filename);
             e.printStackTrace();
         }
+
+    }
+
+    public void specification(String spec){
 
     }
 
