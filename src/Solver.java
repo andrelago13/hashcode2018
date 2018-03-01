@@ -66,7 +66,12 @@ public class Solver {
     }
 
     public static int rideScore(Vehicle v, Ride r) {
-        return 0;
+        int score = 0;
+        score += Distance.getDistance(r.beginLocal,r.endLocal);
+        int[] lastRide = lastCarPos(v);
+        if(Distance.getDistance(lastRide,r.getBeginLocal())<=r.getEndDate())
+            score+=Utils.bonus;
+        return score;
     }
 
     public static void incVehicleAvailable(Vehicle v, Ride r) {
