@@ -33,6 +33,7 @@ public class Solver {
                 v.rides.add(bestRide);
                 bestRide.isBooked = true;
             }
+
         }
 
         return null;
@@ -73,6 +74,11 @@ public class Solver {
     }
 
     public static Ride getFirstPossibleRide(Vehicle v) {
+        for(Ride r : Utils.rides){
+            if(isRidePossible(v,r)){
+                return r;
+            }
+        }
         return null;
     }
 

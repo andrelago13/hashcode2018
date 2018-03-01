@@ -16,4 +16,12 @@ public class Result {
     public ArrayList<Integer> getRideNumbers() {
         return rideNumbers;
     }
+
+    public String convertRides(){
+        String res = "";
+        for(Integer i : rideNumbers){
+            res+=i+" ";
+        }
+        return res;
+    }
 }
