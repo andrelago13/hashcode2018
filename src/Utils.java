@@ -8,6 +8,9 @@ public class Utils {
 
     public ArrayList<Integer> map = new ArrayList<Integer>();
     public ArrayList<Ride> rides = new ArrayList<Ride>();
+    public ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
+    public Integer bonus;
+    public Integer steps;
 
     public static void solve() {
         //Object input = parse();
@@ -63,9 +66,6 @@ public class Utils {
         }
 
     }
-
-    public
-
 
     public static void storeResult(Object result) {
 
