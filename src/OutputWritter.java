@@ -19,11 +19,11 @@ public class OutputWritter {
         results.add(new Result(3,numbers3));
 
 
-        writeFile(results);
+        writeFile(results,"a.asa");
     }
 
-    public static void writeFile(ArrayList<Result> res) throws IOException {
-        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("foo.out")));
+    public static void writeFile(ArrayList<Result> res, String filename) throws IOException {
+        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(filename)));
         for(Result result : res){
             out.println(result.getnRides()+" " + result.convertRides());
         }

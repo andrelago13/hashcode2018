@@ -41,4 +41,5 @@ public class Ride {
     void setEndDate(Integer endDate) {
         this.endDate = endDate;
     }
+
 }

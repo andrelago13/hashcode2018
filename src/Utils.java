@@ -109,11 +109,11 @@ public class Utils {
             rides.get(i).setBeginDate(Integer.parseInt(vars[4]));
             rides.get(i).index = i;
 
-            String endDate = "";
-            for(int j=0;j<(vars[5]).length()-1;++j)
-                endDate+=(vars[5]).charAt(j);
+            //String endDate = "";
+            //for(int j=0;j<(vars[5]).length()-1;++j)
+            //    endDate+=(vars[5]).charAt(j);
 
-            rides.get(i).setEndDate(Integer.parseInt(endDate));
+            rides.get(i).setEndDate(Integer.parseInt(vars[5]));
         }
     }
 

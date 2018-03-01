@@ -12,4 +12,13 @@ public class Vehicle {
     }
 
     ArrayList<Ride> rides = new ArrayList<>();
+
+
+    public ArrayList<Integer> getRideindex(){
+        ArrayList<Integer> res = new ArrayList<>();
+        for(Ride r : rides){
+            res.add(r.index);
+        }
+        return res;
+    }
 }

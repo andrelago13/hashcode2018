@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Solver {
@@ -72,6 +73,16 @@ public class Solver {
             v.lastAvailable = vehicleAvailableBeforeRide;
             return scoreWithoutRide;
         }
+    }
+
+    public static ArrayList<Result> parseSolution(){
+        ArrayList<Result> res = new ArrayList<>();
+        for(Vehicle v : Utils.vehicles){
+            ArrayList<Integer> rNumbers = v.getRideindex();
+            Result r = new Result(rNumbers.size(),rNumbers);
+            res.add(r);
+        }
+        return res;
     }
 
     public static Ride getFirstPossibleRide(Vehicle v) {
