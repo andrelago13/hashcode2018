@@ -53,9 +53,16 @@ public class Solver {
     }
 
     public static boolean isRidePossible(Vehicle v, Ride r) {
+        int[] lastCarPos = lastCarPos(v);
+        int prepareDistance = Distance.getDistance(lastCarPos, r.beginLocal);
+        int rideDistance = Distance.getDistance(r.beginLocal, r.endLocal);
+        int totalDistance = prepareDistance + rideDistance;
 
+        if(v.lastAvailable + totalDistance > r.endDate || v.lastAvailable + totalDistance > Utils.steps) {
+            return false;
+        }
 
-        return false;
+        return true;
     }
 
     public static int rideScore(Vehicle v, Ride r) {
@@ -64,5 +71,15 @@ public class Solver {
 
     public static void incVehicleAvailable(Vehicle v, Ride r) {
 
+    }
+
+    public static int[] lastCarPos(Vehicle v) {
+        int[] lastCarPos = new int[] {0, 0};
+        if(v.rides.size() > 0) {
+            Ride lastRide = v.rides.get(v.rides.size() - 1);
+            lastCarPos[0] = lastRide.endLocal[0];
+            lastCarPos[1] = lastRide.endLocal[1];
+        }
+        return lastCarPos;
     }
 }
