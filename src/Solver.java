@@ -27,13 +27,14 @@ public class Solver {
 
         for(Vehicle v : Utils.vehicles) {
             Ride bestRide = getBestRide(v);
-
-            if(bestRide != null) {
-                incVehicleAvailable(v, bestRide);
-                v.rides.add(bestRide);
-                bestRide.isBooked = true;
+            while(bestRide != null) {
+                if(bestRide != null) {
+                    incVehicleAvailable(v, bestRide);
+                    v.rides.add(bestRide);
+                    bestRide.isBooked = true;
+                }
+                bestRide = getBestRide(v);
             }
-
         }
 
         return null;
