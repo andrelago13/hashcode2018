@@ -45,8 +45,9 @@ public class Utils {
                 }
                 String content = builder.toString();
 
-                System.out.println("Specification: \n" + specification);
-                System.out.println("Content: \n" + content);
+                specification(specification);
+                //System.out.println("Specification: \n" + specification);
+                //System.out.println("Content: \n" + content);
 
             } catch (IOException e) {
                 System.out.println("Error reading file");
@@ -68,6 +69,33 @@ public class Utils {
     }
 
     public void specification(String spec){
+
+        String vars[] = spec.split(" ");
+        map.add(Integer.parseInt(vars[0]));
+        map.add(Integer.parseInt(vars[1]));
+
+        System.out.println("rows: " + map.get(0));
+        System.out.println("columns: " + map.get(1));
+
+        for(int i=0; i<Integer.parseInt(vars[2]);++i){
+            Vehicle v = new Vehicle();
+            vehicles.add(v);
+        }
+
+        System.out.println("vehicles: " + vehicles.size());
+
+        for(int j=0; j<Integer.parseInt(vars[3]);++j){
+            Ride r = new Ride();
+            rides.add(r);
+        }
+
+        System.out.println("rides: " + rides.size());
+
+        bonus = Integer.parseInt(vars[4]);
+        System.out.println("bonus: " + bonus);
+
+        steps = Integer.parseInt(vars[5]);
+        System.out.println("steps: " + steps);
 
     }
 
