@@ -83,6 +83,7 @@ public class Utils {
         for(int j=0; j<Integer.parseInt(vars[3]);++j){
             Ride r = new Ride();
             rides.add(r);
+
         }
 
         bonus = Integer.parseInt(vars[4]);
@@ -106,6 +107,7 @@ public class Utils {
             rides.get(i).setBeginLocal(origin);
             rides.get(i).setEndLocal(destination);
             rides.get(i).setBeginDate(Integer.parseInt(vars[4]));
+            rides.get(i).index = i;
 
             String endDate = "";
             for(int j=0;j<(vars[5]).length()-1;++j)
