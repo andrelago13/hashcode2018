@@ -53,6 +53,10 @@ public class Solver {
     }
 
     public static boolean isRidePossible(Vehicle v, Ride r) {
+        if(r.isBooked) {
+            return false;
+        }
+
         int[] lastCarPos = lastCarPos(v);
         int prepareDistance = Distance.getDistance(lastCarPos, r.beginLocal);
         int rideDistance = Distance.getDistance(r.beginLocal, r.endLocal);
@@ -69,13 +73,22 @@ public class Solver {
         int score = 0;
         score += Distance.getDistance(r.beginLocal,r.endLocal);
         int[] lastRide = lastCarPos(v);
-        if(Distance.getDistance(lastRide,r.getBeginLocal())<=r.getEndDate())
+        if(Distance.getDistance(lastRide,r.getBeginLocal()) + v.lastAvailable <= r.getBeginDate())
             score+=Utils.bonus;
         return score;
     }
 
     public static void incVehicleAvailable(Vehicle v, Ride r) {
+        int[] lastCarPos = lastCarPos(v);
+        int prepareDistance = Distance.getDistance(lastCarPos, r.beginLocal);
+        int rideDistance = Distance.getDistance(r.beginLocal, r.endLocal);
+        int totalDistance = prepareDistance + rideDistance;
 
+        if(v.lastAvailable + prepareDistance <= r.beginDate) {
+            v.lastAvailable = r.beginDate + rideDistance;
+        } else {
+            v.lastAvailable = v.lastAvailable + totalDistance;
+        }
     }
 
     public static int[] lastCarPos(Vehicle v) {
