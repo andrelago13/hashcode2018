@@ -46,6 +46,7 @@ public class Utils {
                 String content = builder.toString();
 
                 specification(specification);
+                fillRides(content);
                 //System.out.println("Specification: \n" + specification);
                 //System.out.println("Content: \n" + content);
 
@@ -74,29 +75,44 @@ public class Utils {
         map.add(Integer.parseInt(vars[0]));
         map.add(Integer.parseInt(vars[1]));
 
-        System.out.println("rows: " + map.get(0));
-        System.out.println("columns: " + map.get(1));
-
         for(int i=0; i<Integer.parseInt(vars[2]);++i){
             Vehicle v = new Vehicle();
             vehicles.add(v);
         }
-
-        System.out.println("vehicles: " + vehicles.size());
 
         for(int j=0; j<Integer.parseInt(vars[3]);++j){
             Ride r = new Ride();
             rides.add(r);
         }
 
-        System.out.println("rides: " + rides.size());
-
         bonus = Integer.parseInt(vars[4]);
-        System.out.println("bonus: " + bonus);
 
         steps = Integer.parseInt(vars[5]);
-        System.out.println("steps: " + steps);
 
+    }
+
+    public void fillRides(String content){
+        String lines[] = content.split("\n");
+        for(int i=0;i<rides.size();++i){
+            String vars[] = lines[i].split(" ");
+
+            System.out.println("Populating Ride...");
+            Integer origin[] = new Integer[2];
+            Integer destination[] = new Integer[2];
+            origin[0] = Integer.parseInt(vars[0]);
+            origin[1] = Integer.parseInt(vars[1]);
+            destination[0] = Integer.parseInt(vars[2]);
+            destination[1] = Integer.parseInt(vars[3]);
+            rides.get(i).setBeginLocal(origin);
+            rides.get(i).setEndLocal(destination);
+            rides.get(i).setBeginDate(Integer.parseInt(vars[4]));
+
+            String endDate = "";
+            for(int j=0;j<(vars[5]).length()-1;++j)
+                endDate+=(vars[5]).charAt(j);
+
+            rides.get(i).setEndDate(Integer.parseInt(endDate));
+        }
     }
 
     public static void storeResult(Object result) {

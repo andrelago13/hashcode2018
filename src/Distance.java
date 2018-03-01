@@ -10,7 +10,7 @@ public class Distance {
         return dist;
     }
 
-    public static Integer getDistance(int[] pos1, int[] pos2) {
+    public static Integer getDistance(Integer[] pos1, Integer[] pos2) {
         return getDistance(pos1[0], pos2[0], pos1[1], pos2[1]);
     }
 

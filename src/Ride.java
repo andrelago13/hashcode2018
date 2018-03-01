@@ -1,25 +1,25 @@
 public class Ride {
 
-    public int[] beginLocal = new int[2];
-    public int[] endLocal = new int[2];
+    public Integer[] beginLocal = new Integer[2];
+    public Integer[] endLocal = new Integer[2];
     public Integer beginDate;
     public Integer endDate;
     public boolean isBooked = false;
 
-    public int[] getBeginLocal() {
+    public Integer[] getBeginLocal() {
         return beginLocal;
     }
 
-    void setBeginLocal(int[] beginLocal) {
+    void setBeginLocal(Integer[] beginLocal) {
         this.beginLocal = beginLocal;
     }
 
 
-    public int[] getEndLocal() {
+    public Integer[] getEndLocal() {
         return endLocal;
     }
 
-    void setEndLocal(int[] endLocal) {
+    void setEndLocal(Integer[] endLocal) {
         this.endLocal = endLocal;
     }
 
